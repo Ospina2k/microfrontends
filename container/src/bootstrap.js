@@ -1,5 +1,8 @@
-import { mount } from "marketing/MarketingApp"
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-console.log("Container App Mounted");
-
-mount(document.querySelector("#marketing-app"));
+ReactDOM.render(
+    <App />,
+    document.querySelector("#root")
+)

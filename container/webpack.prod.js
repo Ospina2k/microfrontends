@@ -1,19 +1,17 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const packageJson = require("./package.json");
+const commonWebpackConfig = require("./webpack.common");
+const { merge } = require("webpack-merge");
 
 const domain = process.env.PRODUCTION_DOMAIN;
 
-module.exports = {
+const prodConfig = {
     mode: "production",
     output: {
         filename: '[name].[contenthash].js',
         publicPath: '/container/latest/'
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./public/index.html"
-        }),
         new ModuleFederationPlugin({
             name: "container",
             remotes: {
@@ -22,4 +20,6 @@ module.exports = {
             shared: packageJson.dependencies
         })
     ]
-} 
+}
+
+module.exports = merge(commonWebpackConfig, prodConfig);
